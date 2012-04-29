@@ -4,11 +4,14 @@
  */
 package com.utd.itc.godse.view;
 
+import com.utd.itc.godse.action.ConvertAction;
+import com.utd.itc.godse.action.UpdateFormAction;
 import com.utd.itc.godse.crypto.Crypto;
 import com.utd.itc.godse.helper.GoDSeHelper;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -23,27 +26,35 @@ public class ReadForm extends javax.swing.JFrame {
         initComponents();
     }
     
-    public ReadForm(String fPath, String key)
+    public ReadForm(String fPath, String key, int sIndex)
     {
         filePath = fPath;
         currKey = key;
+        selectedIndex = sIndex;
         initComponents();
         myInitComponents();
+        update.addActionListener(new UpdateFormAction(this,currKey,selectedIndex));
+        convert.addActionListener(new ConvertAction(this,selectedIndex,currKey,filePath));
     }
 
     public void myInitComponents()
     {
+        String documentData = "";
         try {
-            String documentData  = GoDSeHelper.getDocumentData(filePath);
+            documentData  = GoDSeHelper.getDocumentData(filePath);
             System.out.println("Key Used : "+ currKey);
             System.out.println("Encrypted Contents Read:  " + documentData);
-            String decryptedContent = Crypto.doEncryptDecrypt(documentData, currKey, 'D');
+            //Remove a white-space @ the beginning of the data!!
+            String decryptedContent = Crypto.doEncryptDecrypt(documentData.substring(1), currKey, 'D');
             
             docData.setText(decryptedContent);
+            convert.setVisible(false);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(ReadForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(ReadForm.class.getName()).log(Level.SEVERE, null, ex);
+            docData.setText(documentData);
+            update.setVisible(false);
         }
         
     }
@@ -130,6 +141,39 @@ public class ReadForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public String getCurrKey() {
+        return currKey;
+    }
+
+    public void setCurrKey(String currKey) {
+        this.currKey = currKey;
+    }
+
+    public JTextArea getDocData() {
+        return docData;
+    }
+
+    public void setDocData(JTextArea docData) {
+        this.docData = docData;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public int getSelectedIndex() {
+        return selectedIndex;
+    }
+
+    public void setSelectedIndex(int selectedIndex) {
+        this.selectedIndex = selectedIndex;
+    }
+
+    
     /**
      * @param args the command line arguments
      */
@@ -180,4 +224,5 @@ public class ReadForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private String filePath;
     private String currKey;
+    private int selectedIndex;
 }

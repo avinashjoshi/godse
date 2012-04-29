@@ -40,11 +40,11 @@ public class ReadAction implements ActionListener, Runnable{
 
     @Override
     public void run() {
-       
-        GoDSeDocumentListEntry entry = GoDSeDataStore.documentList.get(homeForm.getDocList().getSelectedIndex());
+        int sIndex = homeForm.getDocList().getSelectedIndex();
+        GoDSeDocumentListEntry entry = GoDSeDataStore.documentList.get(sIndex);
         String filePath = System.getProperty("user.home") + File.separator + entry.getEntry().getTitle().getPlainText() + "." + format;
         GoDSeHelper.downloadDocument(entry.getEntry(), filePath, format);
-        ReadForm readForm = new ReadForm(filePath, currKey);
+        ReadForm readForm = new ReadForm(filePath, currKey,sIndex);
         readForm.setVisible(true);
     }
     

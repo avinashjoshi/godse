@@ -108,7 +108,7 @@ public class Crypto {
         String split[] = cipherText.split(":");
         //System.out.println("String[0]: '"+split[0] + "'");
         //System.out.println("String[1]: '"+split[1] + "'");
-        ivSpec = new IvParameterSpec(Utils.base64Decrypt(split[0].substring(1)));
+        ivSpec = new IvParameterSpec(Utils.base64Decrypt(split[0]));
         //System.out.println("ivSpec : "+ ivSpec.getIV().length);  
         byte[] cipherBytes = Utils.base64Decrypt(split[1]);
 

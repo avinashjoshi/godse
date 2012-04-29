@@ -39,7 +39,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="6" pref="109" max="32767" attributes="0"/>
+                              <EmptySpace min="6" pref="341" max="32767" attributes="0"/>
                               <Component id="convert" min="-2" pref="205" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="update" min="-2" pref="224" max="-2" attributes="0"/>
@@ -58,7 +58,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="ApplicationName" min="-2" pref="22" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="docDataPane" pref="460" max="32767" attributes="0"/>
+              <Component id="docDataPane" pref="507" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="convert" alignment="3" min="-2" max="-2" attributes="0"/>

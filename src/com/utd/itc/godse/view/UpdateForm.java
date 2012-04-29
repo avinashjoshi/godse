@@ -8,6 +8,7 @@ import com.google.gdata.data.acl.AclFeed;
 import com.google.gdata.data.docs.DocumentListEntry;
 import com.utd.itc.godse.action.UpdateGDocAction;
 import com.utd.itc.godse.bean.GoDSeDocumentListEntry;
+import com.utd.itc.godse.crypto.Crypto;
 import com.utd.itc.godse.helper.GoDSeHelper;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -26,15 +27,16 @@ public class UpdateForm extends javax.swing.JFrame {
         myInitComponents();
     }
 
-   public UpdateForm(String fPath,DocumentListEntry gEnt, AclFeed aFeed)
+   public UpdateForm(String fPath,DocumentListEntry gEnt, AclFeed aFeed,String cKey)
     {
         filePath = fPath;
         gEntry.setEntry(gEnt);
         gEntry.setAclFeeds(aFeed);
         dEntry = gEnt;
+        currKey  = cKey;
         initComponents();
         myInitComponents();
-        update.addActionListener(new UpdateGDocAction(this,dEntry));
+        update.addActionListener(new UpdateGDocAction(this,dEntry,currKey));
     }
    
     public void myInitComponents() {
@@ -46,7 +48,9 @@ public class UpdateForm extends javax.swing.JFrame {
         ConfirmKeyLbl.setVisible(false);
         
         String documentData  = GoDSeHelper.getDocumentData(filePath);
-        docData.setText(documentData);
+        String decryptedContent = Crypto.doEncryptDecrypt(documentData.substring(1), currKey, 'D');
+            
+            docData.setText(decryptedContent);
         }catch(Exception  ex)
         {
             ex.printStackTrace();
@@ -74,7 +78,7 @@ public class UpdateForm extends javax.swing.JFrame {
         update = new javax.swing.JButton();
         changeKey = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 560));
 
         ApplicationName.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -276,4 +280,5 @@ public class UpdateForm extends javax.swing.JFrame {
     private String filePath;
     private GoDSeDocumentListEntry gEntry = new GoDSeDocumentListEntry();
     private DocumentListEntry dEntry;
+    private String currKey;
 }
