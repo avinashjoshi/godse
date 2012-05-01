@@ -7,7 +7,7 @@
 #
 # (c) 2012 GODSe
 
-Introduction to Cryptography: Programing Project
+Introduction to Cryptography: Programming Project
 
 GODSe = GOogle Doc Secure
 ========================================================
@@ -35,7 +35,7 @@ Application Flow / Features:
 ------------------------------------------------
 When the application is opened, the user is prompted to enter his Google username and password. (Please note that the application does not store the username and password in clear text anywhere. The password is only used for authenticating). Once the user is authenticated, a list of all "text" documents are shown. These are list of all "text" documents on Google (by text we mean google docs format) including encrypted and non-encrypted text. Various operations that can be performed on any of this document is:
 0. Create: Creates a document with a key
-1. Read: Prompts for a key before reading the document. Note: Our application does not support reading non-encrypted text
+1. Read: Prompts for a key before reading the document.
 2. Update: Prompts user for a password, decrypts the file and allows the user to change contents and re-encrypt either with existing password or a new password
 3. Delete: Deletes the file from Google Docs
 4. Refresh: Refreshes the list of documents
