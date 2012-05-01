@@ -1,5 +1,12 @@
+/*
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
+ */
 package com.utd.itc.godse.utility;
-
 
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -13,8 +20,6 @@ import sun.misc.BASE64Encoder;
 
 /**
  * General utilities used by our code
- * 
- * @author Avinash Joshi <avinash.joshi@utdallas.edu>
  */
 public class Utils {
 
@@ -179,7 +184,6 @@ public class Utils {
         output = md.digest();
         return (toHex(output));
     }
-    
     private static String digits = "0123456789abcdef";
 
     /**

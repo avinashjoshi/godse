@@ -1,11 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
  */
 package com.utd.itc.godse.action;
 
-import com.google.gdata.data.MediaContent;
-import com.google.gdata.data.docs.DocumentListEntry;
 import com.utd.itc.godse.bean.GoDSeDataStore;
 import com.utd.itc.godse.bean.GoDSeDocumentListEntry;
 import com.utd.itc.godse.crypto.Crypto;
@@ -19,10 +21,6 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author GoDSe
- */
 public class ReadAction implements ActionListener, Runnable {
 
     public HomeForm homeForm;
@@ -40,14 +38,16 @@ public class ReadAction implements ActionListener, Runnable {
             homeForm.showErrorMessage(Messages.NOT_SELECTED);
         } else {
             currKey = JOptionPane.showInputDialog("Enter your key: ", "");
-            /*if ("".equalsIgnoreCase(currKey)) {
-                homeForm.showErrorMessage(Messages.KEY_NOT_PROVIDED);
-            }*/
+            /*
+             * if ("".equalsIgnoreCase(currKey)) {
+             * homeForm.showErrorMessage(Messages.KEY_NOT_PROVIDED);
+            }
+             */
             //if (!"".equalsIgnoreCase(currKey) && currKey != null) {
             if (currKey != null) {
                 new Thread(this).start();
             }
-            
+
         }
     }
 
@@ -62,10 +62,10 @@ public class ReadAction implements ActionListener, Runnable {
         ArrayList<String> decryptedContent = Crypto.doEncryptDecrypt(documentData.substring(1), currKey, 'D');
         if ("FAILED".equalsIgnoreCase(decryptedContent.get(0))) {
             homeForm.showErrorMessage(decryptedContent.get(1));
-            ReadForm readForm = new ReadForm(filePath, currKey, sIndex, documentData,false);
+            ReadForm readForm = new ReadForm(filePath, currKey, sIndex, documentData, false);
             readForm.setVisible(true);
-        }else{
-            ReadForm readForm = new ReadForm(filePath, currKey, sIndex, decryptedContent.get(1),true);
+        } else {
+            ReadForm readForm = new ReadForm(filePath, currKey, sIndex, decryptedContent.get(1), true);
             readForm.setVisible(true);
         }
     }

@@ -1,22 +1,22 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
  */
 package com.utd.itc.godse.view;
 
 import com.google.gdata.data.docs.DocumentListEntry;
-import com.utd.itc.godse.bean.GoDSeDataStore;
-import com.utd.itc.godse.bean.GoDSeDocumentListEntry;
 import com.utd.itc.godse.action.ReadAction;
 import com.utd.itc.godse.action.UpdateFormAction;
+import com.utd.itc.godse.bean.GoDSeDataStore;
+import com.utd.itc.godse.bean.GoDSeDocumentListEntry;
 import com.utd.itc.godse.helper.GoDSeHelper;
 import com.utd.itc.godse.resource.Messages;
 import javax.swing.JList;
 
-/**
- *
- * @author GoDSe
- */
 public class HomeForm extends javax.swing.JFrame {
 
     /**
@@ -29,48 +29,44 @@ public class HomeForm extends javax.swing.JFrame {
         update.addActionListener(new UpdateFormAction(this));
     }
 
-    public void updateDocList()
-    {
-        
-        try{
-            
-        String[] docListName = new String[GoDSeDataStore.documentList.size()];
-        docList.setListData(docListName);
-        for(int i=0;i<GoDSeDataStore.documentList.size();i++)
-        {
-            docListName[i] = ((GoDSeDocumentListEntry)GoDSeDataStore.documentList.get(i)).getEntry().getTitle().getPlainText();
-        }
-        
-        docList.setListData(docListName);
-        }catch(Exception ex)
-        {
+    public void updateDocList() {
+
+        try {
+
+            String[] docListName = new String[GoDSeDataStore.documentList.size()];
+            docList.setListData(docListName);
+            for (int i = 0; i < GoDSeDataStore.documentList.size(); i++) {
+                docListName[i] = ((GoDSeDocumentListEntry) GoDSeDataStore.documentList.get(i)).getEntry().getTitle().getPlainText();
+            }
+
+            docList.setListData(docListName);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
-        
+
+
     }
-    
-    public boolean validateChoice()
-    {
+
+    public boolean validateChoice() {
         errorMsg.setVisible(false);
-     
-        if(this.docList.getSelectedIndex() < 0) {
+
+        if (this.docList.getSelectedIndex() < 0) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     public void showErrorMessage(String message) {
         errorMsg.setVisible(true);
         errorMsg.setText("");
-        errorMsg.setText("* "+ message);
+        errorMsg.setText("* " + message);
     }
-    
+
     public void hideErrorMessage() {
         errorMsg.setVisible(false);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -214,7 +210,7 @@ public class HomeForm extends javax.swing.JFrame {
     private void createMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createMouseClicked
         CreateForm createForm = new CreateForm();
         createForm.setVisible(true);
-        
+
     }//GEN-LAST:event_createMouseClicked
 
     private void refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshMouseClicked
@@ -224,16 +220,13 @@ public class HomeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshMouseClicked
 
     private void deleteDocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteDocMouseClicked
-        if(validateChoice())
-        {
+        if (validateChoice()) {
             hideErrorMessage();
             DocumentListEntry entry = GoDSeDataStore.documentList.get(docList.getSelectedIndex()).getEntry();
             GoDSeHelper.deleteDocument(entry);
             GoDSeHelper.prepareItems();
             updateDocList();
-        }
-        else
-        {
+        } else {
             showErrorMessage(Messages.NOT_SELECTED);
         }
     }//GEN-LAST:event_deleteDocMouseClicked
@@ -283,7 +276,6 @@ public class HomeForm extends javax.swing.JFrame {
     public JList getDocList() {
         return docList;
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApplicationName;
     private javax.swing.JButton create;

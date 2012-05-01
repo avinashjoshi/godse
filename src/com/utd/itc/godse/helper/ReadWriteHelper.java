@@ -1,21 +1,21 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
  */
 package com.utd.itc.godse.helper;
 
 import java.io.*;
 
-/**
- *
- * @author GoDSe
- */
 public class ReadWriteHelper {
 
     public static String performRead(String filePath) {
         byte[] dData = new byte[1024];
         byte[] bTemp = null;
-        int bytesRead = 0,k = 0;
+        int bytesRead = 0, k = 0;
         File docFile = null;
         FileInputStream fis = null;
         StringBuffer docData = new StringBuffer();
@@ -25,25 +25,25 @@ public class ReadWriteHelper {
 
             docFile = new File(filePath);
             fis = new FileInputStream(docFile);
-            
+
             while ((bytesRead = fis.read(dData)) != -1) {
                 //docData.append(Byte.toString((byte) bytesRead));
-                k+= bytesRead;
+                k += bytesRead;
             }
             //System.out.println("k: " + k);
             fis.close();
-            
+
             InputStream is = new ByteArrayInputStream(dData);
-            bTemp = new byte[k+1];
+            bTemp = new byte[k + 1];
 
             is.read(bTemp, 0, k);
             docFile.delete();
         } catch (Exception exep) {
             return docData.toString();
         }
-        
-        
-        
+
+
+
         //return docData.toString();
         return new String(bTemp);
     }

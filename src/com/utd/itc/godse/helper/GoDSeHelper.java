@@ -1,6 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
  */
 package com.utd.itc.godse.helper;
 
@@ -16,10 +20,6 @@ import com.utd.itc.godse.resource.Messages;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-/**
- *
- * @author GoDSe
- */
 public class GoDSeHelper {
 
     private static GoDSeDAO godseDao = new GoDSeDAOImpl();
@@ -38,7 +38,7 @@ public class GoDSeHelper {
     }
 
     public static void prepareItems() {
-        
+
         try {
             GoDSeDataStore.documentList.clear();
             DocumentListFeed allFeeds = godseDao.getAllFeeds();
@@ -99,7 +99,7 @@ public class GoDSeHelper {
             e.printStackTrace();
         }
     }
-    
+
     public static void updateDocument(DocumentListEntry entry, String title, String filePath) {
 
         try {
@@ -114,7 +114,7 @@ public class GoDSeHelper {
             e.printStackTrace();
         }
     }
-    
+
     public static void deleteDocument(DocumentListEntry entry) {
 
         try {

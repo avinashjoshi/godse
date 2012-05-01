@@ -1,3 +1,11 @@
+/*
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
+ */
 package com.utd.itc.godse.crypto;
 
 import com.utd.itc.godse.utility.Utils;
@@ -12,8 +20,6 @@ import sun.misc.BASE64Encoder;
 
 /**
  * This class has all Crypto tools needed by the application.
- *
- * @author Avinash Joshi <avinash.joshi@utdallas.edu>
  */
 public class Crypto {
 

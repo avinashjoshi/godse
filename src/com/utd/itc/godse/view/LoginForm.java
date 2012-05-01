@@ -1,16 +1,15 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
  */
 package com.utd.itc.godse.view;
 
 import com.utd.itc.godse.action.LoginAction;
-import java.awt.Event;
 
-/**
- *
- * @author GoDSe
- */
 public class LoginForm extends javax.swing.JFrame {
 
     /**
@@ -167,12 +166,11 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
         //System.out.println("KeyCode: " + evt.getKeyCode());
-        if(evt.getKeyCode() == 10)
-        {
+        if (evt.getKeyCode() == 10) {
             errorMsg.setVisible(false);
             showAuthMsg();
             this.login.doClick();
-            
+
         }
     }//GEN-LAST:event_passwordKeyPressed
 
@@ -180,7 +178,7 @@ public class LoginForm extends javax.swing.JFrame {
         errorMsg.setVisible(false);
         if ("".equalsIgnoreCase(userName.getText().trim()) || "".equalsIgnoreCase(new String(password.getPassword()).trim())) {
             return false;
-        } 
+        }
         return true;
     }
 
@@ -196,20 +194,16 @@ public class LoginForm extends javax.swing.JFrame {
         hideAuthMsg();
         errorMsg.setVisible(true);
         errorMsg.setText("");
-        errorMsg.setText("* "+ message);
+        errorMsg.setText("* " + message);
     }
-    
-    public void hideAuthMsg()
-    {
+
+    public void hideAuthMsg() {
         authMsg.setVisible(false);
     }
 
-    public void showAuthMsg()
-    {
+    public void showAuthMsg() {
         authMsg.setVisible(true);
     }
-
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApplicationName;
     private javax.swing.JLabel PasswordLbl;

@@ -1,6 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
  */
 package com.utd.itc.godse.view;
 
@@ -8,10 +12,6 @@ import com.utd.itc.godse.action.CreateAction;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-/**
- *
- * @author GoDSe
- */
 public class CreateForm extends javax.swing.JFrame {
 
     /**
@@ -22,10 +22,10 @@ public class CreateForm extends javax.swing.JFrame {
         myInitComponents();
     }
 
-    public void myInitComponents()
-    {
+    public void myInitComponents() {
         create.addActionListener(new CreateAction(this));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -163,19 +163,23 @@ public class CreateForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_closeMouseClicked
 
-    public int validateForm()
-    {
-            if("".equalsIgnoreCase(fileName.getText()))
-                return -3;
-            if("".equalsIgnoreCase(docData.getText()))
-                return -4;
-            if("".equalsIgnoreCase(key.getText()) || "".equalsIgnoreCase(confirmKey.getText()))
-                return -2;
-            if(!key.getText().equals(confirmKey.getText()))
-                return -1;
-            
-            return 1;
+    public int validateForm() {
+        if ("".equalsIgnoreCase(fileName.getText())) {
+            return -3;
+        }
+        if ("".equalsIgnoreCase(docData.getText())) {
+            return -4;
+        }
+        if ("".equalsIgnoreCase(key.getText()) || "".equalsIgnoreCase(confirmKey.getText())) {
+            return -2;
+        }
+        if (!key.getText().equals(confirmKey.getText())) {
+            return -1;
+        }
+
+        return 1;
     }
+
     /**
      * @param args the command line arguments
      */
@@ -217,14 +221,14 @@ public class CreateForm extends javax.swing.JFrame {
             }
         });
     }
-    
-     public void showErrorMessage(String message) {
-        
+
+    public void showErrorMessage(String message) {
+
         errorMsg.setVisible(true);
         errorMsg.setText("");
-        errorMsg.setText("* "+ message);
+        errorMsg.setText("* " + message);
     }
-    
+
     public void hideErrorMessage() {
         errorMsg.setVisible(false);
     }
@@ -260,8 +264,6 @@ public class CreateForm extends javax.swing.JFrame {
     public void setKey(JTextField key) {
         this.key = key;
     }
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApplicationName;
     private javax.swing.JLabel ConfirmKeyLbl;

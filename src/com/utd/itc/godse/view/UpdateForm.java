@@ -1,6 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
  */
 package com.utd.itc.godse.view;
 
@@ -8,19 +12,10 @@ import com.google.gdata.data.acl.AclFeed;
 import com.google.gdata.data.docs.DocumentListEntry;
 import com.utd.itc.godse.action.UpdateGDocAction;
 import com.utd.itc.godse.bean.GoDSeDocumentListEntry;
-import com.utd.itc.godse.crypto.Crypto;
-import com.utd.itc.godse.helper.GoDSeHelper;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-/**
- *
- * @author sandeepshenoy
- */
 public class UpdateForm extends javax.swing.JFrame {
 
     /**
@@ -31,46 +26,45 @@ public class UpdateForm extends javax.swing.JFrame {
         myInitComponents();
     }
 
-   public UpdateForm(String fPath,DocumentListEntry gEnt, AclFeed aFeed,String cKey,String dData)
-    {
+    public UpdateForm(String fPath, DocumentListEntry gEnt, AclFeed aFeed, String cKey, String dData) {
         filePath = fPath;
         gEntry.setEntry(gEnt);
         gEntry.setAclFeeds(aFeed);
         dEntry = gEnt;
-        currKey  = cKey;
+        currKey = cKey;
         documentData = dData;
         initComponents();
         myInitComponents();
-        update.addActionListener(new UpdateGDocAction(this,dEntry,currKey));
+        update.addActionListener(new UpdateGDocAction(this, dEntry, currKey));
     }
-   
-    public int validateForm()
-    {
-        if(changeKey.isSelected())
-        {
-            if(!key.getText().equals(confirmKey.getText()))
+
+    public int validateForm() {
+        if (changeKey.isSelected()) {
+            if (!key.getText().equals(confirmKey.getText())) {
                 return -1;
-            if("".equalsIgnoreCase(key.getText()) || "".equalsIgnoreCase(confirmKey.getText()))
+            }
+            if ("".equalsIgnoreCase(key.getText()) || "".equalsIgnoreCase(confirmKey.getText())) {
                 return -2;
-            
+            }
+
         }
-        if("".equalsIgnoreCase(docData.getText()))
-                return -3;
+        if ("".equalsIgnoreCase(docData.getText())) {
+            return -3;
+        }
         return 1;
     }
-   
+
     public void myInitComponents() {
 
-        try{
-        key.setVisible(false);
-        KeyLbl.setVisible(false);
-        confirmKey.setVisible(false);
-        ConfirmKeyLbl.setVisible(false);
-       
+        try {
+            key.setVisible(false);
+            KeyLbl.setVisible(false);
+            confirmKey.setVisible(false);
+            ConfirmKeyLbl.setVisible(false);
 
-        docData.setText(documentData);
-        }catch(Exception  ex)
-        {
+
+            docData.setText(documentData);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -213,7 +207,7 @@ public class UpdateForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
-           this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_closeMouseClicked
 
     private void changeKeyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_changeKeyItemStateChanged
@@ -223,7 +217,7 @@ public class UpdateForm extends javax.swing.JFrame {
             KeyLbl.setVisible(true);
             confirmKey.setVisible(true);
             ConfirmKeyLbl.setVisible(true);
-        }else if (evt.getStateChange() == 2) {
+        } else if (evt.getStateChange() == 2) {
             key.setVisible(false);
             KeyLbl.setVisible(false);
             confirmKey.setVisible(false);
@@ -231,8 +225,7 @@ public class UpdateForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_changeKeyItemStateChanged
 
-    
-     public JTextField getConfirmKey() {
+    public JTextField getConfirmKey() {
         return confirmKey;
     }
 
@@ -247,8 +240,6 @@ public class UpdateForm extends javax.swing.JFrame {
     public void setDocData(JTextArea docData) {
         this.docData = docData;
     }
-
-    
 
     public JTextField getKey() {
         return key;
@@ -265,18 +256,18 @@ public class UpdateForm extends javax.swing.JFrame {
     public void setChangeKey(JCheckBox changeKey) {
         this.changeKey = changeKey;
     }
-    
+
     public void showErrorMessage(String message) {
-        
+
         errorMsg.setVisible(true);
         errorMsg.setText("");
-        errorMsg.setText("* "+ message);
+        errorMsg.setText("* " + message);
     }
-    
+
     public void hideErrorMessage() {
         errorMsg.setVisible(false);
     }
-    
+
     /**
      * @param args the command line arguments
      */

@@ -1,6 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
  */
 package com.utd.itc.godse.action;
 
@@ -18,10 +22,6 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author sandeepshenoy
- */
 public class UpdateFormAction implements ActionListener, Runnable {
 
     public HomeForm homeForm;
@@ -50,30 +50,33 @@ public class UpdateFormAction implements ActionListener, Runnable {
             } else {
                 if (readForm == null) {
                     selectedIndex = homeForm.getDocList().getSelectedIndex();
-                    currKey = JOptionPane.showInputDialog("Enter your key: ", "");    
+                    currKey = JOptionPane.showInputDialog("Enter your key: ", "");
                 }
-                
-                if (currKey != null ) {
+
+                if (currKey != null) {
                     new Thread(this).start();
                 }
             }
+        } else if (readForm != null) {
+            new Thread(this).start();
         }
 
     }
 
     @Override
     public void run() {
+
         GoDSeDocumentListEntry entry = GoDSeDataStore.documentList.get(selectedIndex);
         String filePath = System.getProperty("user.home") + File.separator + entry.getEntry().getTitle().getPlainText() + "." + format;
         GoDSeHelper.downloadDocument(entry.getEntry(), filePath, format);
-        String documentData  = GoDSeHelper.getDocumentData(filePath);
+        String documentData = GoDSeHelper.getDocumentData(filePath);
         ArrayList<String> decryptedContent = Crypto.doEncryptDecrypt(documentData.substring(1), currKey, 'D');
         if ("FAILED".equalsIgnoreCase(decryptedContent.get(0))) {
             homeForm.showErrorMessage(decryptedContent.get(1));
-            UpdateForm updateForm = new UpdateForm(filePath, entry.getEntry(), entry.getAclFeed(), currKey,documentData);
+            UpdateForm updateForm = new UpdateForm(filePath, entry.getEntry(), entry.getAclFeed(), currKey, documentData);
             updateForm.setVisible(true);
-        }else{
-            UpdateForm updateForm = new UpdateForm(filePath, entry.getEntry(), entry.getAclFeed(), currKey,decryptedContent.get(1));
+        } else {
+            UpdateForm updateForm = new UpdateForm(filePath, entry.getEntry(), entry.getAclFeed(), currKey, decryptedContent.get(1));
             updateForm.setVisible(true);
         }
 

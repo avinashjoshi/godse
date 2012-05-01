@@ -1,23 +1,19 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
  */
 package com.utd.itc.godse.view;
 
 import com.utd.itc.godse.action.ConvertAction;
 import com.utd.itc.godse.action.UpdateFormAction;
-import com.utd.itc.godse.crypto.Crypto;
-import com.utd.itc.godse.helper.GoDSeHelper;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
-/**
- *
- * @author GoDSe
- */
 public class ReadForm extends javax.swing.JFrame {
 
     /**
@@ -51,7 +47,7 @@ public class ReadForm extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(ReadForm.class.getName()).log(Level.SEVERE, null, ex);
             docData.setText(documentData);
-            
+
         }
 
     }

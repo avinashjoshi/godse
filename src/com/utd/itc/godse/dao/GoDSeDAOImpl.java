@@ -1,6 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
  */
 package com.utd.itc.godse.dao;
 
@@ -17,16 +21,14 @@ import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 import com.utd.itc.godse.helper.ReadWriteHelper;
 import com.utd.itc.godse.resource.URLManager;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-/**
- *
- * @author GoDSe
- */
 public class GoDSeDAOImpl implements GoDSeDAO {
 
     private DocsService service;
@@ -39,6 +41,7 @@ public class GoDSeDAOImpl implements GoDSeDAO {
         documentsService = new GoogleService("writely", appName);
     }
 
+    @Override
     public void login(String email, String password) throws AuthenticationException {
         service.setUserCredentials(email, password);
         documentsService.setUserCredentials(email, password);
@@ -51,18 +54,18 @@ public class GoDSeDAOImpl implements GoDSeDAO {
     }
 
     @Override
-    public DocumentListEntry createNew(String title, String type, String filePath,String content) throws MalformedURLException, IOException, ServiceException{
-        
+    public DocumentListEntry createNew(String title, String type, String filePath, String content) throws MalformedURLException, IOException, ServiceException {
+
         //System.out.println("Title, Type, FilePath : " + title + " -- " + type +  " -- " + filePath);
         File file = new File(filePath);
         String mimeType = DocumentListEntry.MediaType.fromFileName(file.getName()).getMimeType();
         DocumentListEntry entry = new DocumentListEntry();
         entry.setFile(file, mimeType);
-        entry.setTitle(new PlainTextConstruct(title));        
-	service.setUserToken(token.getValue());
-        return service.insert(new URL(URLManager.Exact_Title_Search),entry);
-       
-        
+        entry.setTitle(new PlainTextConstruct(title));
+        service.setUserToken(token.getValue());
+        return service.insert(new URL(URLManager.Exact_Title_Search), entry);
+
+
     }
 
     @Override
@@ -72,19 +75,18 @@ public class GoDSeDAOImpl implements GoDSeDAO {
         deleteDocument(entry);
         DocumentListEntry nEntry = new DocumentListEntry();
         nEntry.setFile(file, mimeType);
-        nEntry.setTitle(new PlainTextConstruct(title));        
+        nEntry.setTitle(new PlainTextConstruct(title));
         service.setUserToken(token.getValue());
-        
-	return service.insert(new URL(URLManager.Exact_Title_Search),nEntry);
+
+        return service.insert(new URL(URLManager.Exact_Title_Search), nEntry);
 
     }
 
-    
-     @Override
+    @Override
     public void deleteDocument(DocumentListEntry entry) throws MalformedURLException, IOException, ServiceException {
-        service.delete(new URL(entry.getEditLink().getHref()+"?delete=true"),entry.getEtag());
+        service.delete(new URL(entry.getEditLink().getHref() + "?delete=true"), entry.getEtag());
     }
-    
+
     @Override
     public void download(String url, String filePath) throws MalformedURLException, IOException, ServiceException {
         MediaContent mc = new MediaContent();
@@ -92,11 +94,10 @@ public class GoDSeDAOImpl implements GoDSeDAO {
         MediaSource source = service.getMedia(mc);
         InputStream is = null;
         FileOutputStream fos = null;
-        try{
+        try {
             is = source.getInputStream();
             ReadWriteHelper.performWrite(filePath, is);
-        }catch(Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -104,7 +105,7 @@ public class GoDSeDAOImpl implements GoDSeDAO {
     @Override
     public void downloadDocument(DocumentListEntry entry, String filePath, String format) throws MalformedURLException, IOException, ServiceException {
         String url = ((MediaContent) entry.getContent()).getUri() + "&exportFormat=" + format;
-       // System.out.println("Downloading Document!! : " + url + " -- " + filePath);
+        // System.out.println("Downloading Document!! : " + url + " -- " + filePath);
         download(url, filePath);
     }
 
@@ -121,10 +122,8 @@ public class GoDSeDAOImpl implements GoDSeDAO {
 
     @Override
     public String getDocumentContent(String file) {
-        
+
         String docData = ReadWriteHelper.performRead(file);
         return docData;
     }
-
-   
 }

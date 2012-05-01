@@ -1,23 +1,24 @@
+/*
+ * Collaborators:
+ * Avinash Joshi <axj107420@utdallas.edu>
+ * Sandeep Shenoy <sxs115220@utdallas.edu>
+ * Shishir Krishnaprasad <sxk116430@utdallas.edu>
+ * 
+ * (c) 2012 GODSe
+ */
 package com.utd.itc.godse.crypto;
 
 import java.util.ArrayList;
 
-
-
 /**
- * This is a sample code to show how hmac and AES encryption work
- * Logic: CipherText = IV:E_k1{M|HMAC_k2{M}}
- *      Encryption Scheme is AES with CTR mode
- *      HMAC uses HMAC-SHA-256
- * key = "some plain text"
- * keyHash = SHA256(key)
- * k1 = keyHash[0-127] & k2 = keyHash[128-255]
- * 
+ * This is a sample code to show how hmac and AES encryption work Logic:
+ * CipherText = IV:E_k1{M|HMAC_k2{M}} Encryption Scheme is AES with CTR mode
+ * HMAC uses HMAC-SHA-256 key = "some plain text" keyHash = SHA256(key) k1 =
+ * keyHash[0-127] & k2 = keyHash[128-255]
+ *
  * This code uses bouncy castle which can be downloaded from:
- * http://www.bouncycastle.org/latest_releases.html
- * Note: You need to get bcprov-jdk15on-147.jar
- * 
- * @author Avinash Joshi <avinash.joshi@utdallas.edu>
+ * http://www.bouncycastle.org/latest_releases.html Note: You need to get
+ * bcprov-jdk15on-147.jar
  */
 public class AES_HMAC {
 
@@ -30,7 +31,7 @@ public class AES_HMAC {
         System.out.println("Cipher Text");
         System.out.println("=======================================================");
         System.out.println(cipher);
-        
+
         cipher = "AAAAASwkDqYAAAAAAAAAAQ==:7ILt9UfRUiuY8fyQlRuItt0+fCSUi6FaJmlfGvWgbKq+j5TH8ng03L5sIeskSwu3qwOdMYWVQ84wfSMV98yWNNlNLTfced9R4KaAcX/WO0Tch3f+7Jf1GpXzpw==";
 
         returned = Crypto.doEncryptDecrypt(cipher, key, 'D');
