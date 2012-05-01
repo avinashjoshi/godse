@@ -5,8 +5,7 @@
 package com.utd.itc.godse.view;
 
 import com.utd.itc.godse.action.LoginAction;
-import com.utd.itc.godse.resource.Messages;
-import sun.misc.resources.Messages_de;
+import java.awt.Event;
 
 /**
  *
@@ -24,6 +23,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     public void myInitComponents() {
         login.addActionListener(new LoginAction(this));
+        hideAuthMsg();
     }
 
     /**
@@ -43,6 +43,7 @@ public class LoginForm extends javax.swing.JFrame {
         reset = new javax.swing.JButton();
         password = new javax.swing.JPasswordField();
         errorMsg = new javax.swing.JLabel();
+        authMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GoDSe");
@@ -76,40 +77,50 @@ public class LoginForm extends javax.swing.JFrame {
 
         password.setToolTipText("Enter your password");
         password.setName("password");
+        password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordKeyPressed(evt);
+            }
+        });
 
         errorMsg.setFont(new java.awt.Font("Comic Sans MS", 2, 13)); // NOI18N
         errorMsg.setForeground(new java.awt.Color(255, 0, 51));
         errorMsg.setText("*");
         errorMsg.setVisible(false);
 
+        authMsg.setText("Authenticating...");
+        authMsg.setToolTipText("Authenticating with Google Server");
+        authMsg.setName("authMsg");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(layout.createSequentialGroup()
+                        .add(188, 188, 188)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(password)
+                            .add(userName)))
+                    .add(layout.createSequentialGroup()
+                        .add(0, 315, Short.MAX_VALUE)
+                        .add(reset)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(login)))
+                .add(76, 76, 76))
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(58, 58, 58)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(PasswordLbl)
-                            .add(UserNameLbl))
-                        .add(49, 49, 49)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(userName)
-                            .add(password)))
-                    .add(layout.createSequentialGroup()
                         .add(162, 162, 162)
-                        .add(ApplicationName)))
-                .add(109, 109, 109))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(0, 0, Short.MAX_VALUE)
-                .add(reset)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(login)
-                .add(76, 76, 76))
-            .add(layout.createSequentialGroup()
-                .add(34, 34, 34)
-                .add(errorMsg)
+                        .add(ApplicationName))
+                    .add(layout.createSequentialGroup()
+                        .add(38, 38, 38)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(authMsg)
+                            .add(errorMsg)
+                            .add(UserNameLbl)
+                            .add(PasswordLbl))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -131,7 +142,9 @@ public class LoginForm extends javax.swing.JFrame {
                     .add(reset))
                 .add(18, 18, 18)
                 .add(errorMsg)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .add(18, 18, 18)
+                .add(authMsg)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         userName.getAccessibleContext().setAccessibleName("userName");
@@ -149,11 +162,22 @@ public class LoginForm extends javax.swing.JFrame {
         userName.setText("");
         password.setText("");
         errorMsg.setVisible(false);
+        hideAuthMsg();
     }//GEN-LAST:event_resetMouseClicked
+
+    private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
+        //System.out.println("KeyCode: " + evt.getKeyCode());
+        if(evt.getKeyCode() == 10)
+        {
+            errorMsg.setVisible(false);
+            showAuthMsg();
+            this.login.doClick();
+            
+        }
+    }//GEN-LAST:event_passwordKeyPressed
 
     public boolean validateInput() {
         errorMsg.setVisible(false);
-
         if ("".equalsIgnoreCase(userName.getText().trim()) || "".equalsIgnoreCase(new String(password.getPassword()).trim())) {
             return false;
         } 
@@ -169,14 +193,28 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     public void showErrorMessage(String message) {
+        hideAuthMsg();
         errorMsg.setVisible(true);
         errorMsg.setText("");
         errorMsg.setText("* "+ message);
     }
+    
+    public void hideAuthMsg()
+    {
+        authMsg.setVisible(false);
+    }
+
+    public void showAuthMsg()
+    {
+        authMsg.setVisible(true);
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApplicationName;
     private javax.swing.JLabel PasswordLbl;
     private javax.swing.JLabel UserNameLbl;
+    private javax.swing.JLabel authMsg;
     private javax.swing.JLabel errorMsg;
     private javax.swing.JButton login;
     private javax.swing.JPasswordField password;

@@ -30,23 +30,31 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                      <Component id="docListPanel" min="-2" pref="355" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="create" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="read" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="update" alignment="1" pref="106" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="deleteDoc" alignment="1" min="-2" pref="106" max="-2" attributes="0"/>
-                              <Component id="refresh" alignment="1" min="-2" pref="106" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Component id="errorMsg" min="-2" pref="508" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="logout" min="-2" pref="106" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="docListPanel" min="-2" pref="355" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="create" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="read" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="update" alignment="1" pref="106" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="deleteDoc" alignment="1" min="-2" pref="106" max="-2" attributes="0"/>
+                                      <Component id="refresh" alignment="1" min="-2" pref="106" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="logout" min="-2" pref="106" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="89" max="32767" attributes="0"/>
+              <EmptySpace pref="71" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -72,7 +80,9 @@
                       <Component id="logout" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="errorMsg" pref="34" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -161,6 +171,15 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="deleteDocMouseClicked"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="errorMsg">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="ff" type="rgb"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Error Message"/>
+        <Property name="name" type="java.lang.String" value="errorMsg"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

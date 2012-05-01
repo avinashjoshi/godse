@@ -67,7 +67,9 @@
               <EmptySpace pref="133" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <Component id="errorMsg" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="close" min="-2" pref="113" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="create" min="-2" pref="122" max="-2" attributes="0"/>
@@ -98,6 +100,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="close" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="create" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="errorMsg" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
@@ -146,7 +149,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="key">
       <Properties>
-        <Property name="text" type="java.lang.String" value="password_goes_here"/>
         <Property name="toolTipText" type="java.lang.String" value="Key"/>
         <Property name="name" type="java.lang.String" value="key"/>
       </Properties>
@@ -161,7 +163,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="confirmKey">
       <Properties>
-        <Property name="text" type="java.lang.String" value="password_goes_here"/>
         <Property name="toolTipText" type="java.lang.String" value="Confirm Key"/>
         <Property name="name" type="java.lang.String" value="confirmKey"/>
       </Properties>
@@ -173,11 +174,26 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Close"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="closeMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="create">
       <Properties>
         <Property name="text" type="java.lang.String" value="Create"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="errorMsg">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="ff" type="rgb"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Error Message"/>
+        <Property name="name" type="java.lang.String" value="errorMsg"/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="errorMsg"/>
+      </AccessibilityProperties>
     </Component>
   </SubComponents>
 </Form>

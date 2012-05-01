@@ -46,6 +46,7 @@ public class CreateForm extends javax.swing.JFrame {
         confirmKey = new javax.swing.JTextField();
         close = new javax.swing.JButton();
         create = new javax.swing.JButton();
+        errorMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(100, 75));
@@ -65,19 +66,26 @@ public class CreateForm extends javax.swing.JFrame {
 
         KeyLbl.setText("Key");
 
-        key.setText("password_goes_here");
         key.setToolTipText("Key");
         key.setName("key");
 
         ConfirmKeyLbl.setText("Confirm Key");
 
-        confirmKey.setText("password_goes_here");
         confirmKey.setToolTipText("Confirm Key");
         confirmKey.setName("confirmKey");
 
         close.setText("Close");
+        close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeMouseClicked(evt);
+            }
+        });
 
         create.setText("Create");
+
+        errorMsg.setForeground(new java.awt.Color(255, 51, 51));
+        errorMsg.setToolTipText("Error Message");
+        errorMsg.setName("errorMsg");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,7 +119,9 @@ public class CreateForm extends javax.swing.JFrame {
                 .add(confirmKey, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 169, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(133, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(33, 33, 33)
+                .add(errorMsg, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(18, 18, 18)
                 .add(close, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(create, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -137,16 +147,35 @@ public class CreateForm extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(close)
-                    .add(create))
+                    .add(create)
+                    .add(errorMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
         key.getAccessibleContext().setAccessibleName("key");
         confirmKey.getAccessibleContext().setAccessibleName("confirmKey");
+        errorMsg.getAccessibleContext().setAccessibleName("errorMsg");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_closeMouseClicked
+
+    public int validateForm()
+    {
+            if("".equalsIgnoreCase(fileName.getText()))
+                return -3;
+            if("".equalsIgnoreCase(docData.getText()))
+                return -4;
+            if("".equalsIgnoreCase(key.getText()) || "".equalsIgnoreCase(confirmKey.getText()))
+                return -2;
+            if(!key.getText().equals(confirmKey.getText()))
+                return -1;
+            
+            return 1;
+    }
     /**
      * @param args the command line arguments
      */
@@ -187,6 +216,17 @@ public class CreateForm extends javax.swing.JFrame {
                 new CreateForm().setVisible(true);
             }
         });
+    }
+    
+     public void showErrorMessage(String message) {
+        
+        errorMsg.setVisible(true);
+        errorMsg.setText("");
+        errorMsg.setText("* "+ message);
+    }
+    
+    public void hideErrorMessage() {
+        errorMsg.setVisible(false);
     }
 
     public JTextField getConfirmKey() {
@@ -232,6 +272,7 @@ public class CreateForm extends javax.swing.JFrame {
     private javax.swing.JButton create;
     private javax.swing.JTextArea docData;
     private javax.swing.JScrollPane docDataScrollPane;
+    private javax.swing.JLabel errorMsg;
     private javax.swing.JTextField fileName;
     private javax.swing.JTextField key;
     // End of variables declaration//GEN-END:variables

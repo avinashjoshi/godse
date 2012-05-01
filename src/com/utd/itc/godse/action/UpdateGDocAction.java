@@ -8,12 +8,14 @@ import com.google.gdata.data.docs.DocumentListEntry;
 import com.utd.itc.godse.crypto.Crypto;
 import com.utd.itc.godse.helper.GoDSeHelper;
 import com.utd.itc.godse.helper.ReadWriteHelper;
+import com.utd.itc.godse.resource.Messages;
 import com.utd.itc.godse.view.UpdateForm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +39,26 @@ public class UpdateGDocAction implements ActionListener, Runnable{
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-        new Thread(this).start();
+        if(updateForm.validateForm() == -1)
+        {
+            updateForm.showErrorMessage(Messages.CHANGED_KEY_NOT_EQUAL);
+        }
+        else if(updateForm.validateForm() == -2)
+        {
+            updateForm.showErrorMessage(Messages.CHANGED_KEY_NOT_PROVIDED);
+        }
+        else if(updateForm.validateForm() == -3)
+        {
+            updateForm.showErrorMessage(Messages.EMPTY_TEXT_PROVIDED);
+        }
+        else{
+            updateForm.hideErrorMessage();
+            if(updateForm.getChangeKey().isSelected())
+            {
+                currKey = updateForm.getKey().getText();
+            }
+            new Thread(this).start();
+        }
     }
 
     @Override
@@ -49,9 +70,9 @@ public class UpdateGDocAction implements ActionListener, Runnable{
             String filePath = System.getProperty("user.home") + File.separator + fileName + "." + format;
             String content = updateForm.getDocData().getText().trim();
             
-            String encryptedContents = Crypto.doEncryptDecrypt(content, currKey, 'E');
+            ArrayList<String> encryptedContents = Crypto.doEncryptDecrypt(content, currKey, 'E');
            // System.out.println("Name,Path, Content : " +fileName + " -- " +  filePath + " -- " + content);
-            ReadWriteHelper.performWrite(filePath, new ByteArrayInputStream(encryptedContents.getBytes()));
+            ReadWriteHelper.performWrite(filePath, new ByteArrayInputStream(encryptedContents.get(1).getBytes()));
             
             //Call updateDocument
             GoDSeHelper.updateDocument(gEntry, fileName, filePath);
@@ -62,10 +83,8 @@ public class UpdateGDocAction implements ActionListener, Runnable{
             
             //Close window
             this.updateForm.dispose();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UpdateGDocAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(UpdateGDocAction.class.getName()).log(Level.SEVERE, null, ex);
+        }  catch (Exception ex) {
+            updateForm.showErrorMessage(Messages.EXCEPTION_OCCURED);
         }
         
     }

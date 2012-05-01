@@ -9,15 +9,14 @@ import com.utd.itc.godse.bean.GoDSeDataStore;
 import com.utd.itc.godse.crypto.Crypto;
 import com.utd.itc.godse.helper.GoDSeHelper;
 import com.utd.itc.godse.helper.ReadWriteHelper;
+import com.utd.itc.godse.resource.Messages;
 import com.utd.itc.godse.view.ReadForm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.lang.String;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -59,9 +58,9 @@ public class ConvertAction implements ActionListener, Runnable{
             String fileName = entry.getTitle().getPlainText();
             String content = readForm.getDocData().getText();
             
-            String encryptedContents = Crypto.doEncryptDecrypt(content, currKey, 'E');
+            ArrayList<String> encryptedContents = Crypto.doEncryptDecrypt(content, currKey, 'E');
            // System.out.println("Name,Path, Content : " +fileName + " -- " +  filePath + " -- " + content);
-            ReadWriteHelper.performWrite(filePath, new ByteArrayInputStream(encryptedContents.getBytes()));
+            ReadWriteHelper.performWrite(filePath, new ByteArrayInputStream(encryptedContents.get(1).getBytes()));
             
             //Call updateDocument
             GoDSeHelper.updateDocument(entry, fileName, filePath);
@@ -72,10 +71,8 @@ public class ConvertAction implements ActionListener, Runnable{
             
             //Close window
             this.readForm.dispose();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UpdateGDocAction.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(UpdateGDocAction.class.getName()).log(Level.SEVERE, null, ex);
+             //readForm.showErrorMessage(Messages.EXCEPTION_OCCURED);
         }
     }
     

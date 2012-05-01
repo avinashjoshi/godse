@@ -1,5 +1,9 @@
 package com.utd.itc.godse.crypto;
 
+import java.util.ArrayList;
+
+
+
 /**
  * This is a sample code to show how hmac and AES encryption work
  * Logic: CipherText = IV:E_k1{M|HMAC_k2{M}}
@@ -18,19 +22,20 @@ package com.utd.itc.godse.crypto;
 public class AES_HMAC {
 
     public static void main(String[] args) throws Exception {
+        ArrayList<String> returned = new ArrayList<String>();
         String key = "password_goes_here";
-        String cipher, plain;
-        cipher = Crypto.doEncryptDecrypt("This text will be encrypted", key, 'E');
+        String cipher;
+        returned = Crypto.doEncryptDecrypt("This text will be encrypted", key, 'E');
+        cipher = returned.get(1);
         System.out.println("Cipher Text");
         System.out.println("=======================================================");
         System.out.println(cipher);
         
-        //cipher = "AAAAASwkDqYAAAAAAAAAAQ==:7ILt9UfRUiuY8fyQlRuItt0+fCSUi6FaJmlfGvWgbKq+j5TH8ng03L5sIeskSwu3qwOdMYWVQ84wfSMV98yWNNlNLTfced9R4KaAcX/WO0Tch3f+7Jf1GpXzpw==";
-        //cipher = "AAAAAeCnXtoAAAAAAAAAAQ==:pan9uFXKGgBkBHTtu4Il4fsuFzp1cp4J/iBXc1zsJDjHobffA0fIVqtFVj3gVWFlYlP24BCBJPadHVCHtRXRS2LTa9NrzJFeHEGxvLcMBnloZ8mR3faFg+dZgwq2vHfGZ9weLQDtSpkCBKu74eMFC5M=";
-        cipher="AAAAAShJhwcAAAAAAAAAAQ==:Ybz3YOtm6taZFuBII9UQypaijOuiKt5g9R5H0fdPL+ipjUHOVXcecW6zW6gvtoAjqSUNIcwBUJ5X8Pr8YIrX2P6uhfA8p67WsKO35n29gBMlX3LMW2N+8uKwkAR0LZDewz5Y/GclyHEkTbCSL0vxDhQ=";
-        plain = Crypto.doEncryptDecrypt(cipher, key, 'D');
+        cipher = "AAAAASwkDqYAAAAAAAAAAQ==:7ILt9UfRUiuY8fyQlRuItt0+fCSUi6FaJmlfGvWgbKq+j5TH8ng03L5sIeskSwu3qwOdMYWVQ84wfSMV98yWNNlNLTfced9R4KaAcX/WO0Tch3f+7Jf1GpXzpw==";
+
+        returned = Crypto.doEncryptDecrypt(cipher, key, 'D');
         System.out.println("Plain Text");
         System.out.println("=======================================================");
-        System.out.println(plain);
+        System.out.println(returned.get(0) + ": " + returned.get(1));
     }
 }

@@ -10,6 +10,7 @@ import com.utd.itc.godse.bean.GoDSeDocumentListEntry;
 import com.utd.itc.godse.action.ReadAction;
 import com.utd.itc.godse.action.UpdateFormAction;
 import com.utd.itc.godse.helper.GoDSeHelper;
+import com.utd.itc.godse.resource.Messages;
 import javax.swing.JList;
 
 /**
@@ -48,6 +49,28 @@ public class HomeForm extends javax.swing.JFrame {
         
         
     }
+    
+    public boolean validateChoice()
+    {
+        errorMsg.setVisible(false);
+     
+        if(this.docList.getSelectedIndex() < 0) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public void showErrorMessage(String message) {
+        errorMsg.setVisible(true);
+        errorMsg.setText("");
+        errorMsg.setText("* "+ message);
+    }
+    
+    public void hideErrorMessage() {
+        errorMsg.setVisible(false);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,6 +89,7 @@ public class HomeForm extends javax.swing.JFrame {
         logout = new javax.swing.JButton();
         refresh = new javax.swing.JButton();
         deleteDoc = new javax.swing.JButton();
+        errorMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,6 +146,10 @@ public class HomeForm extends javax.swing.JFrame {
             }
         });
 
+        errorMsg.setForeground(new java.awt.Color(255, 0, 0));
+        errorMsg.setToolTipText("Error Message");
+        errorMsg.setName("errorMsg");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,18 +161,23 @@ public class HomeForm extends javax.swing.JFrame {
                         .add(ApplicationName))
                     .add(layout.createSequentialGroup()
                         .add(21, 21, 21)
-                        .add(docListPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 355, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(35, 35, 35)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                    .add(create, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(read, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(update, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, deleteDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 106, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, refresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 106, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(logout, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 106, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(89, Short.MAX_VALUE))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(6, 6, 6)
+                                .add(errorMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 508, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(layout.createSequentialGroup()
+                                .add(docListPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 355, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(35, 35, 35)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                            .add(create, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .add(read, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .add(update, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
+                                        .add(org.jdesktop.layout.GroupLayout.TRAILING, deleteDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 106, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(org.jdesktop.layout.GroupLayout.TRAILING, refresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 106, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(logout, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 106, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -166,7 +199,9 @@ public class HomeForm extends javax.swing.JFrame {
                         .add(refresh)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(logout)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(errorMsg, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -183,15 +218,24 @@ public class HomeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_createMouseClicked
 
     private void refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshMouseClicked
+        hideErrorMessage();
         GoDSeHelper.prepareItems();
         updateDocList();
     }//GEN-LAST:event_refreshMouseClicked
 
     private void deleteDocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteDocMouseClicked
-        DocumentListEntry entry = GoDSeDataStore.documentList.get(docList.getSelectedIndex()).getEntry();
-        GoDSeHelper.deleteDocument(entry);
-        GoDSeHelper.prepareItems();
-        updateDocList();
+        if(validateChoice())
+        {
+            hideErrorMessage();
+            DocumentListEntry entry = GoDSeDataStore.documentList.get(docList.getSelectedIndex()).getEntry();
+            GoDSeHelper.deleteDocument(entry);
+            GoDSeHelper.prepareItems();
+            updateDocList();
+        }
+        else
+        {
+            showErrorMessage(Messages.NOT_SELECTED);
+        }
     }//GEN-LAST:event_deleteDocMouseClicked
 
     /**
@@ -246,6 +290,7 @@ public class HomeForm extends javax.swing.JFrame {
     private javax.swing.JButton deleteDoc;
     private javax.swing.JList docList;
     private javax.swing.JScrollPane docListPanel;
+    private javax.swing.JLabel errorMsg;
     private javax.swing.JButton logout;
     private javax.swing.JButton read;
     private javax.swing.JButton refresh;

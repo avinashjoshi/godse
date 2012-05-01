@@ -53,7 +53,7 @@ public class GoDSeDAOImpl implements GoDSeDAO {
     @Override
     public DocumentListEntry createNew(String title, String type, String filePath,String content) throws MalformedURLException, IOException, ServiceException{
         
-        System.out.println("Title, Type, FilePath : " + title + " -- " + type +  " -- " + filePath);
+        //System.out.println("Title, Type, FilePath : " + title + " -- " + type +  " -- " + filePath);
         File file = new File(filePath);
         String mimeType = DocumentListEntry.MediaType.fromFileName(file.getName()).getMimeType();
         DocumentListEntry entry = new DocumentListEntry();
@@ -104,7 +104,7 @@ public class GoDSeDAOImpl implements GoDSeDAO {
     @Override
     public void downloadDocument(DocumentListEntry entry, String filePath, String format) throws MalformedURLException, IOException, ServiceException {
         String url = ((MediaContent) entry.getContent()).getUri() + "&exportFormat=" + format;
-        System.out.println("Downloading Document!! : " + url + " -- " + filePath);
+       // System.out.println("Downloading Document!! : " + url + " -- " + filePath);
         download(url, filePath);
     }
 

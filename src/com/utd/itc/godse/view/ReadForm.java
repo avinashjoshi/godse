@@ -9,6 +9,7 @@ import com.utd.itc.godse.action.UpdateFormAction;
 import com.utd.itc.godse.crypto.Crypto;
 import com.utd.itc.godse.helper.GoDSeHelper;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
@@ -25,39 +26,36 @@ public class ReadForm extends javax.swing.JFrame {
     public ReadForm() {
         initComponents();
     }
-    
-    public ReadForm(String fPath, String key, int sIndex)
-    {
+
+    public ReadForm(String fPath, String key, int sIndex, String dData, boolean btnFlag) {
         filePath = fPath;
         currKey = key;
         selectedIndex = sIndex;
+        documentData = dData;
         initComponents();
         myInitComponents();
-        update.addActionListener(new UpdateFormAction(this,currKey,selectedIndex));
-        convert.addActionListener(new ConvertAction(this,selectedIndex,currKey,filePath));
+        if (btnFlag) {
+            convert.setVisible(false);
+            update.addActionListener(new UpdateFormAction(this, currKey, selectedIndex));
+        } else {
+            update.setVisible(false);
+            convert.addActionListener(new ConvertAction(this, selectedIndex, currKey, filePath));
+        }
     }
 
-    public void myInitComponents()
-    {
-        String documentData = "";
+    public void myInitComponents() {
         try {
-            documentData  = GoDSeHelper.getDocumentData(filePath);
-            System.out.println("Key Used : "+ currKey);
-            System.out.println("Encrypted Contents Read:  " + documentData);
-            //Remove a white-space @ the beginning of the data!!
-            String decryptedContent = Crypto.doEncryptDecrypt(documentData.substring(1), currKey, 'D');
-            
-            docData.setText(decryptedContent);
-            convert.setVisible(false);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(ReadForm.class.getName()).log(Level.SEVERE, null, ex);
+
+            docData.setText(documentData);
+
         } catch (Exception ex) {
             Logger.getLogger(ReadForm.class.getName()).log(Level.SEVERE, null, ex);
             docData.setText(documentData);
-            update.setVisible(false);
+            
         }
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -173,7 +171,6 @@ public class ReadForm extends javax.swing.JFrame {
         this.selectedIndex = selectedIndex;
     }
 
-    
     /**
      * @param args the command line arguments
      */
@@ -225,4 +222,5 @@ public class ReadForm extends javax.swing.JFrame {
     private String filePath;
     private String currKey;
     private int selectedIndex;
+    private String documentData;
 }

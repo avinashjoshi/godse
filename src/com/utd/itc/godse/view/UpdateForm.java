@@ -10,6 +10,10 @@ import com.utd.itc.godse.action.UpdateGDocAction;
 import com.utd.itc.godse.bean.GoDSeDocumentListEntry;
 import com.utd.itc.godse.crypto.Crypto;
 import com.utd.itc.godse.helper.GoDSeHelper;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -27,16 +31,32 @@ public class UpdateForm extends javax.swing.JFrame {
         myInitComponents();
     }
 
-   public UpdateForm(String fPath,DocumentListEntry gEnt, AclFeed aFeed,String cKey)
+   public UpdateForm(String fPath,DocumentListEntry gEnt, AclFeed aFeed,String cKey,String dData)
     {
         filePath = fPath;
         gEntry.setEntry(gEnt);
         gEntry.setAclFeeds(aFeed);
         dEntry = gEnt;
         currKey  = cKey;
+        documentData = dData;
         initComponents();
         myInitComponents();
         update.addActionListener(new UpdateGDocAction(this,dEntry,currKey));
+    }
+   
+    public int validateForm()
+    {
+        if(changeKey.isSelected())
+        {
+            if(!key.getText().equals(confirmKey.getText()))
+                return -1;
+            if("".equalsIgnoreCase(key.getText()) || "".equalsIgnoreCase(confirmKey.getText()))
+                return -2;
+            
+        }
+        if("".equalsIgnoreCase(docData.getText()))
+                return -3;
+        return 1;
     }
    
     public void myInitComponents() {
@@ -46,11 +66,9 @@ public class UpdateForm extends javax.swing.JFrame {
         KeyLbl.setVisible(false);
         confirmKey.setVisible(false);
         ConfirmKeyLbl.setVisible(false);
-        
-        String documentData  = GoDSeHelper.getDocumentData(filePath);
-        String decryptedContent = Crypto.doEncryptDecrypt(documentData.substring(1), currKey, 'D');
-            
-            docData.setText(decryptedContent);
+       
+
+        docData.setText(documentData);
         }catch(Exception  ex)
         {
             ex.printStackTrace();
@@ -77,8 +95,10 @@ public class UpdateForm extends javax.swing.JFrame {
         close = new javax.swing.JButton();
         update = new javax.swing.JButton();
         changeKey = new javax.swing.JCheckBox();
+        errorMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(75, 75));
         setSize(new java.awt.Dimension(800, 560));
 
         ApplicationName.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -91,7 +111,6 @@ public class UpdateForm extends javax.swing.JFrame {
         docData.setName("docData");
         docDataScrollPane.setViewportView(docData);
 
-        key.setText("key");
         key.setToolTipText("Key");
         key.setName("key");
 
@@ -99,7 +118,6 @@ public class UpdateForm extends javax.swing.JFrame {
 
         ConfirmKeyLbl.setText("Confirm New Key");
 
-        confirmKey.setText("key");
         confirmKey.setToolTipText("Confirm Key");
         confirmKey.setName("confirmKey");
 
@@ -121,6 +139,10 @@ public class UpdateForm extends javax.swing.JFrame {
             }
         });
 
+        errorMsg.setForeground(new java.awt.Color(255, 0, 0));
+        errorMsg.setToolTipText("Error Message");
+        errorMsg.setName("errorMsg");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,22 +158,26 @@ public class UpdateForm extends javax.swing.JFrame {
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(layout.createSequentialGroup()
-                        .add(close, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(27, 27, 27)
-                        .add(update, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(docDataScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 784, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(docDataScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 784, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                            .add(518, 518, 518)
+                            .add(close, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(27, 27, 27)
+                            .add(update, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(layout.createSequentialGroup()
                             .add(57, 57, 57)
-                            .add(KeyLbl)
-                            .add(18, 18, 18)
-                            .add(key, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(43, 43, 43)
-                            .add(ConfirmKeyLbl)
-                            .add(29, 29, 29)
-                            .add(confirmKey, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 169, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(errorMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 455, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(layout.createSequentialGroup()
+                                    .add(KeyLbl)
+                                    .add(18, 18, 18)
+                                    .add(key, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(43, 43, 43)
+                                    .add(ConfirmKeyLbl)
+                                    .add(29, 29, 29)
+                                    .add(confirmKey, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 169, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))))
                 .add(57, 57, 57))
         );
         layout.setVerticalGroup(
@@ -169,17 +195,25 @@ public class UpdateForm extends javax.swing.JFrame {
                     .add(key, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(ConfirmKeyLbl)
                     .add(confirmKey, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(update)
-                    .add(close))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(update)
+                            .add(close))
+                        .add(0, 30, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(errorMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
+
+        errorMsg.getAccessibleContext().setAccessibleName("errorMsg");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
+           this.dispose(); 
     }//GEN-LAST:event_closeMouseClicked
 
     private void changeKeyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_changeKeyItemStateChanged
@@ -222,6 +256,25 @@ public class UpdateForm extends javax.swing.JFrame {
 
     public void setKey(JTextField key) {
         this.key = key;
+    }
+
+    public JCheckBox getChangeKey() {
+        return changeKey;
+    }
+
+    public void setChangeKey(JCheckBox changeKey) {
+        this.changeKey = changeKey;
+    }
+    
+    public void showErrorMessage(String message) {
+        
+        errorMsg.setVisible(true);
+        errorMsg.setText("");
+        errorMsg.setText("* "+ message);
+    }
+    
+    public void hideErrorMessage() {
+        errorMsg.setVisible(false);
     }
     
     /**
@@ -274,6 +327,7 @@ public class UpdateForm extends javax.swing.JFrame {
     private javax.swing.JTextField confirmKey;
     private javax.swing.JTextArea docData;
     private javax.swing.JScrollPane docDataScrollPane;
+    private javax.swing.JLabel errorMsg;
     private javax.swing.JTextField key;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
@@ -281,4 +335,5 @@ public class UpdateForm extends javax.swing.JFrame {
     private GoDSeDocumentListEntry gEntry = new GoDSeDocumentListEntry();
     private DocumentListEntry dEntry;
     private String currKey;
+    private String documentData;
 }

@@ -43,18 +43,21 @@ public class LoginAction implements ActionListener, Runnable {
 		email+="@gmail.com";
         
         //System.out.println("Logging in with: " + email + " - " + password);
+        loginForm.showAuthMsg();
         String message = GoDSeHelper.login(email, password);
         
         //System.out.println("LOGIN CALL DONE!! " + message);
         if("success".equalsIgnoreCase(message))
-        {
-            this.loginForm.setVisible(false);
+        {           
             GoDSeHelper.prepareItems();
             HomeForm hForm = new HomeForm();
+            this.loginForm.setVisible(false);
             hForm.setVisible(true);
+            
         }
         else
         {
+            loginForm.hideAuthMsg();
             loginForm.showErrorMessage(Messages.LOGIN_CREDENTIALS_FAILED);
         }
     }
