@@ -131,6 +131,7 @@
             <Property name="columns" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="0" type="code"/>
             </Property>
+            <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="0" type="code"/>
             </Property>

@@ -102,6 +102,7 @@ public class UpdateForm extends javax.swing.JFrame {
         ApplicationName.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         docData.setColumns(0);
+        docData.setLineWrap(true);
         docData.setRows(0);
         docData.setName("docData");
         docDataScrollPane.setViewportView(docData);

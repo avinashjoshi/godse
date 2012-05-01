@@ -72,8 +72,9 @@ public class ReadForm extends javax.swing.JFrame {
         setLocation(new java.awt.Point(100, 75));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        docData.setColumns(12);
+        docData.setColumns(0);
         docData.setEditable(false);
+        docData.setLineWrap(true);
         docData.setRows(300
         );
         docData.setTabSize(16);
