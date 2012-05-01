@@ -1,0 +1,41 @@
+Introduction to Cryptography: Programing Project
+
+GODSe = GOogle Doc Secure
+========================================================
+
+Introduction:
+------------------------------------------------
+Google Docs is a free web-based office collaboration tool offered by Google Inc. You can create & edit documents online and collaborate with other users. One of the problems with this is that you have to trust Google with respect to security of your file.
+
+GODSe is a Java based desktop application that securely encrypts text before uploading to google docs server. The encryption algorithm used is AES in CTR mode. We also ensure the integrity/authenticity of message by calculating HMAC of the plain text that was to be encrypted. Transmitting HMAC is clear text is vulnerable to attacks. So we calculate HMAC of the plaintext and append the same to the plaintext. Now this whole "appended" message is encrypted.
+
+The encryption scheme:
+------------------------------------------------
+Encryption scheme is AES in CTR mode which is proven to be secure. The Initialization Vector (IV) is generated using a Secure Random function [1][2][3]. This secure random function is provided by Java's in-built security module/provider. Hence, IV generate for each message is different and the message in whole is random. IV is appended to the message that is encrypted e.g. IV:E_k{M} where M is a message.
+
+Base 64: The encrypted text and IV are usually in bytes or in binary format. Google Docs is basically a text-like editor and would like to have contents of documents in clear ASCII text. To ensure this, we can either convert bytes to hex and store or we could encode using base 64. We prefer base64 since it represents binary in ASCII. Base64 is commonly used when we need to ensure that binary data is to transmitted or represented in ASCII. We could use hex representation, but we have to note that converting byte to hex will double the text size that would be stored in Google Docs Sever.
+
+HMAC: To ensure message integrity and authenticity, we use HMAC which is Hash-based Message Authentication Code. This involves using a cryptographic hash function in combination with a secret key. HMAC of the plaintext is calculated and then appended to the plaintext before sending to the encryption module -> {M|HMAC_k{M}}. Our implementation of HMAC uses HMAC-SHA-256. That is, the 
+
+
+Final Encryption: So, the final encryption will look like: IV:E_k1{M|HMAC_k2{M}} where k1 and k2 are keys to Encryption and HMAC respectively.
+
+Key generation: We have to generate the key for encryption and HMAC. We generate they key based on user-inputted key. For example. If the password for a document that the user wants to encrypt is "password", we calculate SHA256("password") and first 128 bits are used for encryption and the next 128 bits are used for HMAC. This way, the user does not have to enter two different keys.
+
+Application Flow / Features:
+------------------------------------------------
+When the application is opened, the user is prompted to enter his Google username and password. (Please note that the application does not store the username and password in clear text anywhere. The password is only used for authenticating). Once the user is authenticated, a list of all "text" documents are shown. These are list of all "text" documents on Google (by text we mean google docs format) including encrypted and non-encrypted text. Various operations that can be performed on any of this document is:
+0. Create: Creates a document with a key
+1. Read: Prompts for a key before reading the document. Note: Our application does not support reading non-encrypted text
+2. Update: Prompts user for a password, decrypts the file and allows the user to change contents and re-encrypt either with existing password or a new password
+3. Delete: Deletes the file from Google Docs
+4. Refresh: Refreshes the list of documents
+
+Once the user is logged in, there is an option to logout which closes that session and quits the application. This ensures that the resources acquired are released.
+
+
+References
+------------------------------------------------
+[1] http://docs.oracle.com/javase/6/docs/api/java/security/SecureRandom.html
+[2] http://csrc.nist.gov/groups/STM/index.html
+[3] http://www.ietf.org/rfc/rfc1750.txt
