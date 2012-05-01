@@ -13,7 +13,7 @@ import java.io.*;
 public class ReadWriteHelper {
 
     public static String performRead(String filePath) {
-        byte[] dData = new byte[1024];
+        byte[] dData = new byte[1024*50];
         byte[] bTemp = null;
         int bytesRead = 0, k = 0;
         File docFile = null;
