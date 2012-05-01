@@ -45,7 +45,7 @@ public class LoginForm extends javax.swing.JFrame {
         authMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("GoDSe");
+        setTitle("GODSe: Login");
         setLocation(new java.awt.Point(22, 22));
         setLocationByPlatform(true);
         setName("loginFrame");

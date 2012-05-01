@@ -15,15 +15,16 @@
  * Shishir Krishnaprasad <sxk116430@utdallas.edu>
  * 
  * (c) 2012 GODSe
- * 
  */
 package com.utd.itc.godse;
 
+import com.utd.itc.godse.helper.UIHelper;
 import com.utd.itc.godse.view.LoginForm;
 
 public class GoDSeApp {
     
     public static void main(String args[]) {
+        UIHelper.setTitle("GODSe");
         LoginForm loginForm = new LoginForm();
         loginForm.setVisible(true);
     }

@@ -92,6 +92,7 @@ public class UpdateForm extends javax.swing.JFrame {
         errorMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("GODSe: Update Encrypted Document");
         setLocation(new java.awt.Point(75, 75));
         setSize(new java.awt.Dimension(800, 560));
 

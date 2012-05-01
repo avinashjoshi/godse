@@ -49,6 +49,7 @@ public class CreateForm extends javax.swing.JFrame {
         errorMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("GODSe: Create New Encrypted Doc");
         setLocation(new java.awt.Point(100, 75));
         setPreferredSize(new java.awt.Dimension(800, 540));
         setSize(new java.awt.Dimension(800, 540));

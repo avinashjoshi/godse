@@ -68,6 +68,7 @@ public class ReadForm extends javax.swing.JFrame {
         update = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("GODSe: Read Document");
         setLocation(new java.awt.Point(100, 75));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -111,7 +112,7 @@ public class ReadForm extends javax.swing.JFrame {
                         .addContainerGap()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createSequentialGroup()
-                                .add(6, 109, Short.MAX_VALUE)
+                                .add(6, 341, Short.MAX_VALUE)
                                 .add(convert, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 205, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(18, 18, 18)
                                 .add(update, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 224, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -124,7 +125,7 @@ public class ReadForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(ApplicationName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(docDataPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .add(docDataPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(convert)

@@ -88,6 +88,7 @@ public class HomeForm extends javax.swing.JFrame {
         errorMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GODSe: Home");
 
         docList.setToolTipText("Your List of Documents");
         docList.setName("docList");
